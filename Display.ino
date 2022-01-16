@@ -1,17 +1,14 @@
 
 ////////////////////////////
-#include <SoftwareSerial.h>     //Nötige Ressourcen laden
+#include <SoftwareSerial.h>
 #include <MHZ19.h>
-////////////////////////////
-
-//////////////////////////////
-#include <Wire.h>
+#include <Wire.h>               //Nötige Ressourcen laden
 #include <LCD.h>
 #include <LiquidCrystal_I2C.h>
 //////////////////////////////
 
 /////////////////
-#define RX_PIN 11     //CO2-Sensor Pins
+#define RX_PIN 11     //CO2-Sensor Pins definieren
 #define TX_PIN 12
 /////////////////
 
@@ -21,7 +18,7 @@
 #define BACKLIGHT_PIN 3 
 #define En_pin 2
 #define Rw_pin 1
-#define Rs_pin 0            //Display-Pins
+#define Rs_pin 0            //Display-Pins definieren
 #define D4_pin 4
 #define D5_pin 5
 #define D6_pin 6
@@ -55,7 +52,7 @@ void setup() {
   lcd.print("%");
   delay(3000);
   lcd.clear();
-  lcd.print("Loading..");
+  lcd.print("Loading..");                                   //Ladebildschirm mit zufällig generierten Prozentzahlen
   lcd.setCursor(0, 1);
   lcd.print(random(10,70));
   lcd.setCursor(2, 1);
@@ -69,13 +66,15 @@ void setup() {
   lcd.print("%");
   delay(500);
   lcd.clear();
+  
+  ///////////////////////////////////////////////////
   lcd.setCursor(6, 0);
   lcd.print("Herzlich");
   delay(500);
   lcd.setCursor(5, 1);
   lcd.print("Willkommen");
   delay(500);
-  lcd.setCursor(6, 2);
+  lcd.setCursor(6, 2);                        //Startbildschirm mit Willlkommensnachricht
   lcd.print("zu ihrer");
   delay(500);
   lcd.setCursor(5, 3);
@@ -93,8 +92,8 @@ void loop() {
   delay(500);
 
   lcd.setCursor(4, 0);
-  lcd.print("Der CO2-Wert ");
-  lcd.setCursor(6, 1);
+  lcd.print("Der CO2-Wert ");                 //Definierung der Variable "CO2" zum Abrufen der CO2-Werte,
+  lcd.setCursor(6, 1);                        //der Wert wird auf das Display übertragen
   lcd.print("betraegt");
   lcd.setCursor(5, 2);
   lcd.print(CO2);
@@ -103,7 +102,7 @@ void loop() {
 ///////////////////////////////////////
 
 ///////////////////////////////////////
-vmCO2.autoCalibration(false);
+vmCO2.autoCalibration(false);               //Command für Kalibrierung des Sensors. Auf "true" setzen, wenn man draußen ist und kalibrieren will
 ///////////////////////////////////////
 
 ///////////////////////////////////////
@@ -113,7 +112,7 @@ if(CO2<800) {
   lcd.print("Der CO2-Wert ");
   lcd.setCursor(6, 1);
   lcd.print("betraegt");
-  lcd.setCursor(5, 2);
+  lcd.setCursor(5, 2);                    //Solange der Wert unter 800 ppm ist, wird er als "gut" angezeigt
   lcd.print(CO2);
   lcd.setCursor(10, 2);
   lcd.print("ppm");
@@ -131,7 +130,7 @@ if((CO2>=800) && (CO2<1000)) {
   lcd.print("Der CO2-Wert ");
   lcd.setCursor(6, 1);
   lcd.print("betraegt");
-  lcd.setCursor(5, 2);
+  lcd.setCursor(5, 2);                    //Solange der Wert zwischen 800 und 1000 ppm ist, wird er als "akzeptabel" angezeigt
   lcd.print(CO2);
   lcd.setCursor(10, 2);
   lcd.print("ppm");
@@ -145,7 +144,7 @@ if(CO2>=1000) {
   lcd.print("Der CO2-Wert ");
   lcd.setCursor(6, 1);
   lcd.print("betraegt");
-  lcd.setCursor(5, 2);
+  lcd.setCursor(5, 2);                    //Solange der Wert über 1000 ppm ist, wird er als "zu hoch" angezeigt
   lcd.print(CO2);
   lcd.setCursor(10, 2);
   lcd.print("ppm");
